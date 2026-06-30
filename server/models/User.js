@@ -6,35 +6,35 @@ const { Schema } = mongoose
 const userSchema = new Schema({
     name: {
         type: String,
-        required: true,
+        required: true
     },
     email: {
         type: String,
         required: true,
-        unique: true,
+        unique: true
     },
     password: {
         type: String,
-        required: true,
+        required: true
     },
     phone: {
         type: String,
-        required: true,
+        required: true
     },
     location: {
         type: String,
-        required: true,
+        required: true
     },
     role: {
         type: String,
         enum: ['worker', 'client'],
-        default: 'client',
+        default: 'client'
     },
     profession: {
-        type: String,
+        type: String
     },
     skills: {
-        type: [String],
+        type: [String]
     },
     experience: {
         type: Number
@@ -47,19 +47,19 @@ const userSchema = new Schema({
     },
     rating: {
         type: Number,
-        default: 0,
+        default: 0
     },
     totalJobs: {
         type: Number,
-        default: 0,
+        default: 0
     },
     isAvailable: {
         type: Boolean,
-        default: true,
+        default: true
     },
     isVerified: {
         type: Boolean,
-        default: false,
+        default: false
     }
 }, { timestamps: true })
 
