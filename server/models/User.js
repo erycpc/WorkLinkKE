@@ -28,21 +28,13 @@ const userSchema = new Schema({
     role: {
         type: String,
         enum: ['worker', 'client'],
-    },
-    createdAt: {
-        type: Date,
-        timestamps: true,
-    },
-    updatedAt: {
-        type: Date,
-        timestamps: true,
+        default: 'client',
     },
     profession: {
-        type: String
+        type: String,
     },
     skills: {
-        type: String,
-        enum: [],
+        type: [String],
     },
     experience: {
         type: Number
@@ -79,4 +71,4 @@ userSchema.pre('save', async function() {
 })
 
 const User = mongoose.model('User', userSchema)
-export default User
+module.exports = User
