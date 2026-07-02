@@ -6,6 +6,7 @@ const connectDB = require('./config/db')
 const authRoutes = require('./routes/authRoutes')
 const jobRoutes = require('./routes/jobRoutes')
 const applicationRoutes = require('./routes/applicationRoutes')
+const reviewRoutes = require('./routes/reviewRoutes')
 
 dotenv.config({ path: `${__dirname}/.env` })
 
@@ -30,6 +31,7 @@ app.use(morgan('dev'))
 app.use('/api/auth', authRoutes)
 app.use('/api/jobs', jobRoutes)
 app.use('/api/applications', applicationRoutes)
+app.use('/api/reviews', reviewRoutes)
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' })
