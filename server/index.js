@@ -4,6 +4,7 @@ const cors = require('cors')
 const morgan = require('morgan')
 const connectDB = require('./config/db')
 const authRoutes = require('./routes/authRoutes')
+const jobRoutes = require('./routes/jobRoutes')
 
 dotenv.config({ path: `${__dirname}/.env` })
 
@@ -26,6 +27,7 @@ app.use(express.json())
 app.use(morgan('dev'))
 
 app.use('/api/auth', authRoutes)
+app.use('/api/jobs', jobRoutes)
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' })
