@@ -6,7 +6,9 @@ const Application = require('../models/Application');
 // Get worker's own applications
 router.get('/', protect, async (req, res) => {
     try {
-        const applications = await Application.find({ workerId: req.user._id });
+        const applications = await Application.find({ workerId: req.user._id })
+            .populate('jobId', 'title location budget deadline')
+            .populate('workerId', 'name email phone rating');   
         res.json(applications);
     } catch (error) {
         res.status(500).json({ message: 'Server Error' });
@@ -16,7 +18,8 @@ router.get('/', protect, async (req, res) => {
 // Get all applications for a specific job
 router.get('/job/:jobId', protect, async (req, res) => {
     try {
-        const applications = await Application.find({ jobId: req.params.jobId });
+        const applications = await Application.find({ jobId: req.params.jobId })
+            .populate('workerId', 'name email phone rating profession');
         res.json(applications);
     } catch (error) {
         res.status(500).json({ message: 'Server Error' });

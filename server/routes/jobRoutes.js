@@ -10,7 +10,7 @@ const Job = require('../models/Job')
 // @access  public
 router.get('/', async (req, res) => {
   try {
-    const jobs = await Job.find()
+    const jobs = await Job.find().populate('clientId', 'name email phone location')
     res.json(jobs)
   } catch (err) {
     res.status(500).json({ message: 'Server error' })
@@ -43,10 +43,9 @@ router.post('/', protect, async (req, res) => {
 
 // @desc    Get a job by ID
 // @route   GET /api/jobs/:id
-// @access  public
 router.get('/:id', async (req, res) => {
   try {
-    const job = await Job.findById(req.params.id)
+    const job = await Job.findById(req.params.id).populate('clientId', 'name email phone location')
     if (!job) {
       return res.status(404).json({ message: 'Job not found' })
     }
