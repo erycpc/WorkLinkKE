@@ -7,24 +7,37 @@ function JobDetail() {
   const [job, setJob] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
+    let isActive = true
+
     const fetchJobDetail = async () => {
       setLoading(true)
       setError(null)
 
       try {
         const response = await API.get(`/jobs/${id}`)
-        setJob(response.data)
+        if (isActive) {
+          setJob(response.data)
+        }
       } catch (fetchError) {
         console.error('Error fetching job detail:', fetchError)
-        setError('Failed to load job details. Please try again.')
+        if (isActive) {
+          setError('Failed to load job details. Please try again.')
+        }
       } finally {
-        setLoading(false)
+        if (isActive) {
+          setLoading(false)
+        }
       }
     }
 
     fetchJobDetail()
+
+    return () => {
+      isActive = false
+    }
   }, [id])
 
   if (loading) {
@@ -44,17 +57,23 @@ function JobDetail() {
   }
 
   const handleApply = async () => {
-  try {
-    await API.post('/applications', {
-      jobId: id,
-      message: 'I am interested in this job',
-      proposedRate: job.budget
-    })
-    alert('Application submitted!')
-  } catch (err) {
-    alert(err.response?.data?.message || 'Failed to apply')
+    if (submitting) return
+
+    setSubmitting(true)
+
+    try {
+      await API.post('/applications', {
+        jobId: id,
+        message: 'I am interested in this job',
+        proposedRate: job.budget
+      })
+      alert('Application submitted!')
+    } catch (err) {
+      alert(err.response?.data?.message || 'Failed to apply')
+    } finally {
+      setSubmitting(false)
+    }
   }
-}
 
 
   return (
