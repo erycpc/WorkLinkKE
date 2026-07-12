@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Jobs from './pages/Jobs'
+import JobDetail from './pages/JobDetail'
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/jobs" element={<Jobs />} />
-        <Route path="/jobs/:id" element={<div>Job Detail</div>} />
+        <Route path="/jobs/:id" element={<JobDetail />} />
         <Route path="/dashboard" element={<div>Dashboard</div>} />
       </Routes>
     </Router>
