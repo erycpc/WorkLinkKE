@@ -3,6 +3,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Jobs from './pages/Jobs'
 import JobDetail from './pages/JobDetail'
+import Dashboard from './pages/Dashboard'
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/jobs/:id" element={<JobDetail />} />
-        <Route path="/dashboard" element={<div>Dashboard</div>} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   )
