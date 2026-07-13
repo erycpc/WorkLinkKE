@@ -45,13 +45,44 @@ function WorkerDashboard() {
 }
 
   function ClientDashboard() {
-    return (
-      <div>
-        <h2 className="text-white text-xl font-semibold mb-4">Client Dashboard</h2>
-        <p className="text-gray-400">Here you can post new jobs and manage existing ones.</p>
+  const [jobs, setJobs] = useState([])
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const res = await API.get('/jobs')
+        setJobs(res.data)
+      } catch (err) {
+        console.error('Error fetching jobs:', err)
+      }
+    }
+    fetchJobs()
+  }, [])
+
+  return (
+    <div>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-white text-xl font-bold">Your Posted Jobs</h2>
+        <a href="/jobs/new" className="bg-green-600 text-white px-4 py-2 rounded-lg">
+          + Post a job
+        </a>
       </div>
-    )
-  }
+      {jobs.length === 0 ? (
+        <p className="text-gray-400">No jobs posted yet.</p>
+      ) : (
+        jobs.map(job => (
+          <div key={job._id} className="bg-gray-900 border border-gray-800 rounded-xl p-4 mb-3">
+            <p className="text-white font-medium">{job.title}</p>
+            <p className="text-gray-400 text-sm">{job.location} · KSh {job.budget}</p>
+            <span className="text-xs px-2 py-1 rounded-full bg-green-900 text-green-300">
+              {job.status}
+            </span>
+          </div>
+        ))
+      )}
+    </div>
+  )
+}
 
 function Dashboard() {
   const [user, setUser] = useState(null)
