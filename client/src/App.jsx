@@ -5,12 +5,13 @@ import Jobs from './pages/Jobs'
 import JobDetail from './pages/JobDetail'
 import PostJob from './pages/PostJob'
 import Dashboard from './pages/Dashboard'
+import Navbar from './components/Navbar'
 
 function App() {
   return (
     <Router>
+      <Navbar />
       <Routes>
-        <Route path="/" element={<div>Home</div>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/jobs" element={<Jobs />} />
